@@ -2,6 +2,12 @@ import node
 import sys
 
 
+def imprime(folha):
+    print(folha.op)
+    if folha.pai is not None:
+        imprime(folha.pai)
+
+
 def main():
     if len(sys.argv) != 3:
         print("Entrada errada")
@@ -22,6 +28,7 @@ def main():
         filhos = []
         print('Estado atual: ', atual.tupla)
         if atual.tupla == fim:
+            imprime(atual)
             break
         for i in range(3):
             for j in range(3):
@@ -32,15 +39,17 @@ def main():
                     mnew = numM - atual.tupla[0] + i  # barco levou i mercenarios e ficou com mnew na margem
                     cnew = numC - atual.tupla[1] + j  # barco levou j canibais e ficou com cnew na margem
 
-                    if (mold >= cold or mold == 0) and (cold >= 0 and mold >= 0) and (mnew >= cnew or mnew == 0) and (cnew >= 0 and mnew >= 0):
+                    if (mold >= cold or mold == 0) and (cold >= 0 and mold >= 0) and (mnew >= cnew or mnew == 0) and (
+                            cnew >= 0 and mnew >= 0):
                         if atual.tupla[2] == 'MargemEsq':  # está na margem esquerda
                             filho = ((numM - atual.tupla[0] + i, numC - atual.tupla[1] + j, 'MargemDir'), (i, j))
-                        else:                              # está na margem direita
+                        else:  # está na margem direita
                             filho = ((numM - atual.tupla[0] + i, numC - atual.tupla[1] + j, 'MargemEsq'), (i, j))
                         filhos.append(filho)
 
-                        atual.add(node.Node(filho[0], atual))
+                        atual.add(node.Node(filho[0], atual, (i, j)))
                         fila.append(atual.filhos[-1])
         print("Estados novos gerados: ", filhos)
+
 
 main()
