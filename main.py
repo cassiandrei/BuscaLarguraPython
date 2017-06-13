@@ -9,14 +9,16 @@ def imprime(folha):
 
 
 def main():
-    if len(sys.argv) != 3:
+    if len(sys.argv) != 4:
         print("Entrada errada")
         exit(1)
     numM = int(sys.argv[1])  # Numero de Mercenarios
     numC = int(sys.argv[2])  # Numero de Canibais
+    barco = int(sys.argv[3])  # Numero de pessoas no Barco
 
     inicio = (numM, numC, 'MargemEsq')
     fim = (numM, numC, 'MargemDir')
+    visitados = []
 
     fila = []
 
@@ -26,13 +28,14 @@ def main():
     while True:
         atual = fila.pop(0)
         filhos = []
+        visitados.append(atual.tupla)
         print('Estado atual: ', atual.tupla)
         if atual.tupla == fim:
             imprime(atual)
             break
-        for i in range(3):
-            for j in range(3):
-                if 2 >= i + j > 0:  # <i,j> OPERADOR
+        for i in range(barco+1):
+            for j in range(barco+1):
+                if barco >= i + j > 0:  # <i,j> OPERADOR
                     mold = atual.tupla[0] - i  # sobrou na margem mold mercenarios
                     cold = atual.tupla[1] - j  # sobrou na margem cold canibais
 
@@ -47,8 +50,9 @@ def main():
                             filho = ((numM - atual.tupla[0] + i, numC - atual.tupla[1] + j, 'MargemEsq'), (i, j))
                         filhos.append(filho)
 
-                        atual.add(node.Node(filho[0], atual, (i, j)))
-                        fila.append(atual.filhos[-1])
+                        if filho[0] not in visitados:
+                            atual.add(node.Node(filho[0], atual, (i, j)))
+                            fila.append(atual.filhos[-1])
         print("Estados novos gerados: ", filhos)
 
 
