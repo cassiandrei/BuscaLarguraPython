@@ -2,19 +2,32 @@ import node
 import sys
 
 
-def imprime(folha):
-    print(folha.op)
-    if folha.pai is not None:
-        imprime(folha.pai)
-
-
 def main():
+    '''
+        Função Principal
+        :param sys.argv: argumentos passados ao executar o programa
+        :param numM:
+        :param numC:
+        :param barco:
+        :param inicio:
+        :param fim:
+        :param visitados:
+        :param fila:
+        :param raiz:
+        :param atual:
+        :param filho:
+        :param filhos:
+        :param mold:
+        :param cold:
+        :param mnew:
+        :param cnew:
+    '''
     if len(sys.argv) != 4:
         print("Entrada errada")
         exit(1)
-    numM = int(sys.argv[1])  # Numero de Mercenarios
-    numC = int(sys.argv[2])  # Numero de Canibais
-    barco = int(sys.argv[3])  # Numero de pessoas no Barco
+    numM = int(sys.argv[1])
+    numC = int(sys.argv[2])
+    barco = int(sys.argv[3])
 
     inicio = (numM, numC, 'MargemEsq')
     fim = (numM, numC, 'MargemDir')
