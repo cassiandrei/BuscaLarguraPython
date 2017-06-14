@@ -6,3 +6,5 @@
 
     Para executar digite:
         $python3 <Numero de Missioarios> <Numero de Canibais> <Numero maximo de Pessoas no barco>
+
+    repositório: https://github.com/cassiandrei/BuscaLarguraPython
